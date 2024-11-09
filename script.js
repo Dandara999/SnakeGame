@@ -9,6 +9,7 @@ let snakeX = 5, snakeY = 5;
 let velocityX = 0, velocityY = 0;
 let snakeBody = [];
 let setIntervalId;
+let intervalSpeed = 300;
 let score = 0;
 
 // Get high score from localStorage or initialize it to 0
@@ -57,6 +58,9 @@ const initGame = () => {
         updateFoodPosition();
         snakeBody.push([foodY, foodX]); // Add food position to snake body
         score++;
+        if (intervalSpeed > 50){
+            intervalSpeed = intervalSpeed - 50;
+        }
         highScore = score > highScore ? score : highScore;
         localStorage.setItem('high-score', highScore);
         scoreElement.innerText = `Score: ${score}`;
@@ -93,5 +97,5 @@ const initGame = () => {
 };
 
 updateFoodPosition();
-setIntervalId = setInterval(initGame, 100);
+setIntervalId = setInterval(initGame, intervalSpeed);
 document.addEventListener('keydown', changeDirection);
